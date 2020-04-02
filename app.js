@@ -2,7 +2,9 @@
 App({
   onLaunch: function () {
     //接云开发
-
+    wx.cloud.init({
+      env:"mini-otrrj"
+    })
 
 
     // 展示本地存储能力
