@@ -4,6 +4,11 @@
     "pages/teacher/teacher",
     "pages/map/map"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取当前位置信息"
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
