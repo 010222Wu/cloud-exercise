@@ -54,8 +54,8 @@ Page({
 
   },
 
-  
-  powerDrawerOne: function (evt) {
+
+  powerDrawerOne: function(evt) {
     //获取该对象的statu
     let currentStatu = evt.currentTarget.dataset.statu;
     mapid = evt.currentTarget.dataset.id;
@@ -64,7 +64,7 @@ Page({
     this.utilOne(currentStatu)
   },
 
-  powerDrawerTwo: function (evt) {
+  powerDrawerTwo: function(evt) {
     //获取该对象的statu
     let currentStatu = evt.currentTarget.dataset.statu;
     this.utilTwo(currentStatu)
@@ -73,25 +73,25 @@ Page({
 
 
   /** 
-     * 显示mapview
-     */
-  toMap: function () {
+   * 显示mapview
+   */
+  toMap: function() {
     this.setData({
       showNewStatus: false,
-      showMapStatus:true,
+      showMapStatus: true,
     })
   },
 
   /** 
-     * 弹出动画
-     */
-  utilOne: function (currentStatu) {
+   * 弹出动画
+   */
+  utilOne: function(currentStatu) {
     /* 动画部分 */
     // 第1步：创建动画实例   
     let animation = wx.createAnimation({
-      duration: 200,  //动画时长  
+      duration: 200, //动画时长  
       timingFunction: "linear", //线性  
-      delay: 0  //0则不延迟  
+      delay: 0 //0则不延迟  
     });
 
     // 第2步：这个动画实例赋给当前的动画实例  
@@ -106,7 +106,7 @@ Page({
     })
 
     // 第5步：设置定时器到指定时候后，执行第二组动画  
-    setTimeout(function () {
+    setTimeout(function() {
       // 执行第二组动画  
       animation.opacity(1).rotateX(0).step();
       // 给数据对象储存的第一组动画，更替为执行完第二组动画的动画对象  
@@ -116,31 +116,27 @@ Page({
 
       //关闭  
       if (currentStatu == "close") {
-        this.setData(
-          {
-            showModalOneStatus: false
-          }
-        );
+        this.setData({
+          showModalOneStatus: false
+        });
       }
     }.bind(this), 200)
 
     // 显示  
     if (currentStatu == "open") {
-      this.setData(
-        {
-          showModalOneStatus: true
-        }
-      );
+      this.setData({
+        showModalOneStatus: true
+      });
     }
   },
 
-  utilTwo: function (currentStatu) {
+  utilTwo: function(currentStatu) {
     /* 动画部分 */
     // 第1步：创建动画实例   
     let animation = wx.createAnimation({
-      duration: 200,  //动画时长  
+      duration: 200, //动画时长  
       timingFunction: "linear", //线性  
-      delay: 0  //0则不延迟  
+      delay: 0 //0则不延迟  
     });
 
     // 第2步：这个动画实例赋给当前的动画实例  
@@ -155,7 +151,7 @@ Page({
     })
 
     // 第5步：设置定时器到指定时候后，执行第二组动画  
-    setTimeout(function () {
+    setTimeout(function() {
       // 执行第二组动画  
       animation.opacity(1).rotateX(0).step();
       // 给数据对象储存的第一组动画，更替为执行完第二组动画的动画对象  
@@ -165,32 +161,28 @@ Page({
 
       //关闭  
       if (currentStatu == "close") {
-        this.setData(
-          {
-            showModalTwoStatus: false
-          }
-        );
+        this.setData({
+          showModalTwoStatus: false
+        });
       }
     }.bind(this), 200)
 
     // 显示  
     if (currentStatu == "open") {
-      this.setData(
-        {
-          showModalTwoStatus: true
-        }
-      );
+      this.setData({
+        showModalTwoStatus: true
+      });
     }
   },
 
 
   /** 
-     * 获取用户设备屏幕高度
-     */
-  getWindowHeight: function () {
+   * 获取用户设备屏幕高度
+   */
+  getWindowHeight: function() {
     var that = this
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         var statusBarHeight = res.statusBarHeight;
         var titleBarHeight;
         // 确定titleBar高度（区分安卓和苹果
@@ -214,7 +206,7 @@ Page({
     })
   },
 
-  scopeSetting: function () {
+  scopeSetting: function() {
     var that = this;
     wx.getSetting({
       success(res) {
@@ -229,10 +221,10 @@ Page({
               wx.showModal({
                 title: '提示',
                 content: '定位失败，你未开启定位权限，点击开启定位权限',
-                success: function (res) {
+                success: function(res) {
                   if (res.confirm) {
                     wx.openSetting({
-                      success: function (res) {
+                      success: function(res) {
                         if (res.authSetting['scope.userLocation']) {
                           that.moveToLocation();
                         } else {
@@ -253,13 +245,13 @@ Page({
   },
 
   /**
-     * 请求用户所在地理位置、并移动到地图中心
-     */
-  moveToLocation: function () {
+   * 请求用户所在地理位置、并移动到地图中心
+   */
+  moveToLocation: function() {
     var that = this
     wx.getLocation({
       type: 'gcj02',
-      success: function (res) {
+      success: function(res) {
         that.setData({
           latitude: res.latitude,
           longitude: res.longitude,
@@ -270,9 +262,9 @@ Page({
   },
 
   /**
-  * 缩放比例使得标点能全部显现
-  */
-  includePoints: function () {
+   * 缩放比例使得标点能全部显现
+   */
+  includePoints: function() {
     var that = this
     this.mapCtx.includePoints({
       padding: [80],
@@ -281,7 +273,7 @@ Page({
   },
 
 
-  onReady: function () {
+  onReady: function() {
     consoleUtil.log('onReady--------------------->');
     this.mapCtx = wx.createMapContext('myMap');
     this.includePoints()
@@ -290,7 +282,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     consoleUtil.log('onShow--------------------->');
     this.getWindowHeight();
     markerid = 1;
@@ -298,11 +290,12 @@ Page({
     //获取maps集合
     //查
     maps.get({
-      success: function (res) {
+      success: function(res) {
         // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
         console.log(res.data)
         that.setData({
-          mapsItem:res.data,
+          mapsItem: res.data,
+          length: res.data.length,
         })
         // console.log(that.data.mapsItem)
       }
@@ -313,42 +306,42 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
   /**
    * 改变列表的状态
    */
-  changeListStatus: function () {
+  changeListStatus: function() {
     if (this.data.isAboutShown) {
       return;
     }
@@ -371,16 +364,16 @@ Page({
       // 若不延时 则导致includePoints的padding错误
       // 但延时处理也有瑕疵
       // 如果mapHeight的更新速度仍然小于延时时间 则padding也有误
-      setTimeout(function () {
+      setTimeout(function() {
         this.includePoints()
       }.bind(this), 40);
     }
   },
 
-/**
+  /**
    * 获得mapname
    */
-  mapName: function(evt){
+  mapName: function(evt) {
     let name = evt.detail.value;
     this.setData({
       mapname: name
@@ -388,15 +381,15 @@ Page({
     // console.log(this.data.mapname);
   },
 
-/**
+  /**
    * 添加markers
    */
-  addMakers: function () {
+  addMakers: function() {
     markerid++;
     let that = this;
     wx.getLocation({
       type: 'gcj02',
-      success: function (res) {
+      success: function(res) {
         marker = {
           id: markerid,
           markerlat: res.latitude,
@@ -419,57 +412,89 @@ Page({
     })
   },
 
- /** 
-     * 将地图信息提交至数据库
-     * 增
-     */
-  saveMakers:function(){
+  /** 
+   * 将地图信息提交至数据库
+   * 增
+   */
+  saveMakers: function() {
     maps.add({
-      data:{
-        name:this.data.mapname,
+      data: {
+        name: this.data.mapname,
         markers: this.data.marksItem,
-        isNow:false,
+        isNow: false,
       },
-      success(res){
-        console.log("提交成功",res)
+      success(res) {
+        console.log("提交成功", res)
       },
-      fail(res){
-        console.log("提交失败",res)
+      fail(res) {
+        console.log("提交失败", res)
       }
     })
   },
 
   /** 
-     * 显示newview
-     */
-  outMakers: function () {
+   * 显示newview
+   */
+  outMakers: function() {
     this.setData({
       showNewStatus: true,
       showMapStatus: false,
-      showModalOneStatus:false
+      showModalOneStatus: false
     })
   },
 
-/** 
-     * 修改地图按钮
-     */
-  changeMap:function(evt){
+  /** 
+   * 修改地图按钮
+   */
+  changeMap: function(evt) {
     // console.log(mapid);
     wx.navigateTo({
       url: '../map/map?mapid=' + mapid
     })
   },
 
-/** 
-     * 设为当前上线地图按钮
-     * 改
-     */
+  /** 
+   * 设为当前上线地图按钮
+   * 改
+   */
+  nowMap: function(evt) {
+    console.log(this.data.mapsItem[0]._id);
+    var i=0
+    var id
+    var length = this.data.length
+    for(i=0;i<length;i++)
+    {
+      id = this.data.mapsItem[i]._id
+      db.collection('maps').doc(id).update({
+        data: {
+          isNow: false
+        },
+        success(res) {
+          console.log("获取数据成功"+i)
+        },
+        fail(res) {
+          console.log("获取数据失败"+i)
+        }
+      })
+    }
+    wx.cloud.callFunction({
+      name: "nowmap",
+      data: {
+        id: mapid
+      },
+      success(res) {
+        console.log("获取数据成功", res)
+      },
+      fail(res) {
+        console.log("获取数据失败", res)
+      }
+    })
+  },
 
-
-/** 
-     * 删除当前地图
-     */
-  deleteMap:function(){
+  /** 
+   * 删除当前地图
+   */
+  deleteMap: function() {
     maps.doc(mapid).remove({
       success(res) {
         console.log("删除成功", res)
@@ -478,6 +503,5 @@ Page({
         console.log("删除失败", res)
       }
     })
-    
   },
 })
